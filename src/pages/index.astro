@@ -1,0 +1,66 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const posts = allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+function readingTime(body: string): string {
+  const words = body.split(/\s+/).length;
+  const minutes = Math.ceil(words / 200);
+  return `${minutes} min de lectura`;
+}
+---
+
+<Layout title="Inicio">
+  <div class="page-wrapper">
+    <section class="home-hero">
+      <h1>Agentic AI, arquitectura cloud<br/>y <em>lo que aprendí</em> en el camino.</h1>
+      <p>Artículos técnicos sobre sistemas de IA, GCP y el trabajo real detrás de los proyectos.</p>
+    </section>
+
+    <section>
+      <div class="section-label">
+        <span>Artículos</span>
+      </div>
+
+      <div class="post-list">
+        {posts.map((post) => {
+          const slug = post.id.replace(/\.mdx?$/, '');
+          const rt = readingTime(post.body ?? '');
+          return (
+            <a href={`/blog/${slug}`} class="post-card">
+              <div class="post-card-image">
+                {post.data.image ? (
+                  <img src={post.data.image} alt={post.data.imageAlt ?? post.data.title} />
+                ) : (
+                  <div class="post-card-image-placeholder">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
+                    </svg>
+                  </div>
+                )}
+              </div>
+              <div class="post-card-body">
+                <div class="post-meta">
+                  <span>{post.data.date.toLocaleDateString('es-AR', { year: 'numeric', month: 'short', day: 'numeric' })}</span>
+                  <span class="post-meta-dot"></span>
+                  <span>{rt}</span>
+                </div>
+                <h2>{post.data.title}</h2>
+                <p>{post.data.description}</p>
+                {post.data.tags.length > 0 && (
+                  <div class="post-tags">
+                    {post.data.tags.map((tag) => (
+                      <span class="tag">{tag}</span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </a>
+          );
+        })}
+      </div>
+    </section>
+  </div>
+</Layout>
