@@ -6,19 +6,19 @@
   --font-display: 'Outfit', 'Inter', sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 
-  --color-bg: #f7f8fc;
+  --color-bg: #ffffff;
   --color-surface: #ffffff;
-  --color-border: #e8ecf2;
-  --color-border-strong: #d0d7e0;
+  --color-border: #e5e5e5;
+  --color-border-strong: #d0d0d0;
 
-  --color-text: #0d1117;
-  --color-text-muted: #5a6478;
-  --color-text-light: #94a3b8;
+  --color-text: #1a1a1a;
+  --color-text-muted: #666666;
+  --color-text-light: #999999;
 
-  --color-accent: #1e6ef5;
-  --color-accent-hover: #1554d4;
-  --color-accent-light: #eff5ff;
-  --color-accent-dim: #bdd5fe;
+  --color-accent: #0066cc;
+  --color-accent-hover: #0052a3;
+  --color-accent-light: #f0f5ff;
+  --color-accent-dim: #b3d9ff;
 
   --color-tag-bg: #f0f4ff;
   --color-tag-text: #1e6ef5;
